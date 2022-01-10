@@ -1,0 +1,31 @@
+﻿@model IQueryable<WebApp.SaleManagement.Models.Product>
+@foreach (var item in Model)
+{
+<tr>
+    <td>@item.Id</td>
+    <td>
+        <h2 class="table-avatar">
+            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/@item.Image" ></a>
+            <a>@item.ProductName</a>
+        </h2>
+    </td>
+    <td>@item.Price</td>
+    <td>@item.Quantity</td>
+    <td>@item.Category.CategoryName</td>
+    <td>@item.Brand.BrandName</td>
+    <td class="form-inline">
+        <form method="get" class="actions" asp-action="Edit" asp-route-id="@item.Id" >
+            <button type="submit" class="btn btn-sm bg-primary-light " >
+                <i class="fe fe-edit"></i> Edit
+            </button>
+        </form>
+        &nbsp;
+        <form method="get" class="actions" asp-action="Delete" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#DeleteView" data-ajax-mode="replace">
+            <button type="submit" class="btn btn-sm bg-danger-light " data-toggle="modal" href="#delete_modal">
+                <i class="fe fe-trash"></i> Delete
+            </button>
+        </form>
+    </td>
+</tr>
+
+}

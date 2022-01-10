@@ -1,0 +1,40 @@
+﻿@model WebApp.SaleManagement.Models.Brand
+
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row modal-header">
+
+            <div class="col-md-11">
+                <h3 class="page-title text-center text-primary">Create Brand</h3>
+            </div>
+            <a asp-action="Index" class="btn btn-outline-primary" type="button">Back to List</a>
+
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <form asp-action="CreatePost" method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label>Brand Name:</label>
+                    <input asp-for="BrandName" type="text" class="form-control" >
+                    <span asp-validation-for="BrandName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label>Brand Description:</label>
+                    <textarea asp-for="BrandDesc" rows="3" cols="5" class="form-control" placeholder="Enter message"></textarea>
+                    <span asp-validation-for="BrandDesc" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        
+
+            <button type="submit" class="btn btn-primary btn-block">Create</button>
+        
+    </form>
+
+</div>

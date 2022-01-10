@@ -1,0 +1,170 @@
+﻿@model WebApp.SaleManagement.Models.Customer
+@{
+    ViewData["Title"] = "Details";
+
+}
+    <div class="content container-fluid">
+
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col">
+                    <h3 class="page-title">Profile</h3>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Page Header -->
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="profile-header">
+                    <div class="row align-items-center">
+                        <div class="col-auto profile-image">
+                            <a href="#">
+                                <img class="rounded-circle" alt="User Image" src="~/assets/img/profiles/avatar-01.jpg">
+                            </a>
+                        </div>
+                        <div class="col ml-md-n2 profile-user-info">
+                            <h4 class="user-name mb-0">@Model.Name</h4>
+                            <h6 class="text-muted">@Model.Email</h6>
+                            <div class="user-Location"><i class="fa fa-map-marker"></i> @Model.Address</div>
+
+                        </div>
+                        <div class="col-auto profile-btn">
+
+                            <a asp-action="Index" class="btn btn-outline-primary">
+                                Back To List
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-menu">
+                    <ul class="nav nav-tabs nav-tabs-solid">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#per_details_tab">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#password_tab">Order</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content profile-tab-cont">
+
+                    <!-- Personal Details Tab -->
+                    <div class="tab-pane fade show active" id="per_details_tab">
+
+                        <!-- Personal Details -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title d-flex justify-content-between">
+                                            
+                                            <span class="text-primary"> Customer Details</span>
+
+
+                                        </h5>
+                                        <div class="row">
+                                            <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Name</p>
+                                            <p class="col-sm-9">@Model.Name</p>
+                                        </div>
+
+                                        <div class="row">
+                                            <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Email</p>
+                                            <p class="col-sm-9">@Model.Email</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Mobile</p>
+                                            <p class="col-sm-9">@Model.Phone</p>
+                                        </div>
+                                        <div class="row">
+                                            <p class="col-sm-3 text-muted text-sm-right mb-0">Address</p>
+                                            <p class="col-sm-9 mb-0">
+                                                @Model.Address
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+                        <!-- /Personal Details -->
+
+                    </div>
+                    <!-- /Personal Details Tab -->
+                    <!-- Change Password Tab -->
+                    <div id="password_tab" class="tab-pane fade">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+
+                                    <div class="card-body">
+                                        <div class="table-responsive table-hover">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                    <tr>
+                                                        <th>OrderId</th>
+                                                        <th>Order Date</th>
+                                                        <th>Status</th>
+                                                        <th>Total</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Orders)
+                                                    {
+                                                    <tr>
+                                                        <td>@item.Id</td>
+                                                        <td>@item.OrderDate</td>
+                                                        @if (item.Status.ToString() == "PendingReview")
+                                                        {
+                                                            <td class="text-warning">
+                                                                <b>@item.Status</b>
+                                                            </td>
+                                                        }
+                                                        @if (item.Status.ToString() == "PendingShipment")
+                                                        {
+                                                            <td class="text-primary ">
+                                                                <b>@item.Status</b>
+                                                            </td>
+                                                        }
+                                                        @if (item.Status.ToString() == "Complete")
+                                                        {
+
+                                                            <td class="text-success">
+                                                                <b>@item.Status</b>
+                                                            </td>
+                                                        }
+                                                        <td>@item.Total</td>
+                                                        <td>
+                                                            <form method="get" class="actions" asp-action="Details" asp-controller="OrderManager" asp-route-id="@item.Id">
+                                                                <button type="submit" class="btn btn-sm bg-primary-light ">
+                                                                    <i class="fe fe-eye"></i> Details
+                                                                </button>
+                                                            </form>
+                                                            &nbsp;
+                                                        </td>
+                                                    </tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /Change Password Tab -->
+
+                </div>
+            </div>
+        </div>
+
+    </div>

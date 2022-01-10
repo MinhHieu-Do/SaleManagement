@@ -1,0 +1,45 @@
+﻿@model IEnumerable<WebApp.SaleManagement.Models.CartItem>
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+
+        <tr id="TR_@item.ProductId">
+
+            <td>
+                <h2 class="table-avatar">
+                    <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/@item.ProductImage"></a>
+                    <a>@item.ProductName</a>
+                </h2>
+            </td>
+            <td class="product-name">
+                @item.ProductPrice
+            </td>
+            <td>
+                <div class="input-group mb-3">
+                    <form asp-action="UpdateCart" data-ajax="true" data-ajax-update="#TR_@item.ProductId" data-ajax-method="post" asp-controller="Order" class="form-inline"
+                          data-ajax-mode="replace">
+                        <input hidden name="id" asp-for="@item.ProductId" />
+
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <input type="number" name="quantity" style="width:70px" class="form-control text-center" asp-for="@item.ProductQuantity" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                            <button class="btn btn-sm bg-primary-light" type="submit"><i class="fe fe-edit"></i></button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </td>
+            <td>@item.Total</td>
+            <td>
+                <form asp-action="DeleteCart" data-ajax-success="DeleteItem(this)" data-ajax-method="post" asp-controller="Order" data-ajax="true" asp-route-id="@item.ProductId">
+                    <button type="submit" class="btn btn-sm bg-danger-light "><i class="fe fe-trash"></i></button>
+                </form>
+            </td>
+
+        </tr>
+
+    }
+}

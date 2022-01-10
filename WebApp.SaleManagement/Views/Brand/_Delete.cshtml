@@ -1,0 +1,10 @@
+﻿@model WebApp.SaleManagement.Models.Brand
+<div class="form-content p-2">
+    <h4 class="modal-title">Delete</h4>
+    <p class="mb-4">Are you sure want to delete <span class="text-danger h5">@Model.BrandName</span>?</p>
+    <form asp-action="DeletePost" asp-route-id="@Model.Id">
+        <button type="submit" class="btn btn-danger">Delete </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+    </form>
+
+</div>

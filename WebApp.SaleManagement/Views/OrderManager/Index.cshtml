@@ -1,0 +1,117 @@
+﻿@model IEnumerable<WebApp.SaleManagement.Models.Order>
+
+@{
+    ViewData["Title"] = "Index";
+
+    string filterName = "All Status";
+    if (ViewBag.Filter != null)
+        filterName = ViewBag.Filter;
+}
+
+<div class="content container-fluid">
+    
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="page-title">List of Order</h3>
+
+            </div>
+            <div class="col-md-6 form-inline">
+
+                <form method="get" asp-action="OrderByStatus" asp-route-status="" data-ajax="true" data-ajax-update="#ListView" data-ajax-mode="replace">
+                    <button type="submit" class="btn btn-outline-info">
+                        All <sup class="badge badge-danger">@ViewBag.CountAll</sup>
+                    </button>
+                </form>&nbsp;
+                <!-- Button trigger modal -->
+                <form method="get" asp-action="OrderByStatus" asp-route-status="PendingReview" data-ajax="true" data-ajax-update="#ListView" data-ajax-mode="replace">
+                    <button type="submit" class="btn btn-outline-warning">
+                        PendingReview <sup class="badge badge-danger">@ViewBag.Review</sup>
+                    </button>
+                </form>&nbsp;
+                <form method="get" asp-action="OrderByStatus" asp-route-status="PendingShipment" data-ajax="true" data-ajax-update="#ListView" data-ajax-mode="replace">
+                    <button type="submit" class="btn btn-outline-primary">
+                        PendingShipment <sup class="badge badge-danger">@ViewBag.Shipment</sup>
+                    </button>
+                </form>&nbsp;
+                <form method="get" asp-action="OrderByStatus" asp-route-status="Complete" data-ajax="true" data-ajax-update="#ListView" data-ajax-mode="replace">
+                    <button type="submit" class="btn btn-outline-success">
+                        Complete <sup class="badge badge-danger">@ViewBag.Complete</sup>
+                    </button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="datatable table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Customer</th>
+                                        <th>Employee</th>
+                                        <th>Order Date</th>
+                                        <th>Status</th>
+                                        <th>Address</th>
+                                        <th>Total</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ListView">
+                                    <partial name="_ListOrder" model="@Model" />
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade" id="delete_modal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!--	<div class="modal-header">
+                    <h5 class="modal-title">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>-->
+            <div class="modal-body" id="DeleteView">
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Modal -->
+<!-- Edit Modal -->
+<div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!--	<div class="modal-header">
+                    <h5 class="modal-title">Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>-->
+            <div class="modal-body" id="EditView">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

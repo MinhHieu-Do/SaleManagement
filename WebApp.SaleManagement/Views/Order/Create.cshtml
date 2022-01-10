@@ -1,0 +1,87 @@
+﻿@model WebApp.SaleManagement.ViewModels.CartViewModel
+@{
+    ViewData["Title"] = "Order";
+
+}
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 class="page-title text-primary">Add New Order</h3>
+
+            </div>
+            <div class="col-md-4">
+
+            </div>
+            <div class="col-sm-2">
+                <a asp-action="SaveOrder" asp-controller="Order" asp-route-userName="@User.Identity.Name" class="btn bg-success-light" type="button"><i class="fe fe-notice-push"></i> Save Order</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="datatable table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Buy</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="ListView">
+                                    <partial name="_FindProduct" model="@Model.Products" />
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="table-responsive">
+                            <table class="datatable table table-hover table-center mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ListCart">
+                                    <partial name="_ListCart" model="@Model.CartItems" />
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        function DeleteItem(form) {
+            var removeItem = $(form)
+            removeItem.closest("tr").remove();
+        }
+    </script>
+}

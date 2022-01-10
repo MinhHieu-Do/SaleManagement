@@ -1,0 +1,22 @@
+﻿@model IEnumerable<WebApp.SaleManagement.Models.Product>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            <h2 class="table-avatar">
+                <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="~/@item.Image"></a>
+                <a>@item.ProductName</a>
+            </h2>
+        </td>
+        <td>@item.Price</td>
+        <td class="form-inline">
+            <form method="get" class="actions" asp-action="AddToCart" asp-route-id="@item.Id" asp-route-quantity="1" data-ajax="true" data-ajax-update="#ListCart" data-ajax-mode="replace">
+                <button type="submit" class="btn btn-sm bg-primary-light ">
+                    <i class="fe fe-cart"></i>
+                </button>
+            </form>
+           
+        </td>
+    </tr>
+
+}

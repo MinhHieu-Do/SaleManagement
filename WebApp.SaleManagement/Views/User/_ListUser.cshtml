@@ -1,0 +1,30 @@
+﻿@model IEnumerable<WebApp.SaleManagement.ViewModels.UserViewModel>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <th>
+            @Html.DisplayFor(modelItem => item.Name)
+        </th>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td class="form-inline">
+
+            <form method="get" class="actions" asp-action="Details" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#DetailView" data-ajax-mode="replace">
+                <button type="submit" class="btn btn-sm bg-primary-light "data-toggle="modal" href="#detail_modal">
+                    <i class="fe fe-eye"></i> Details
+                </button>
+            </form>
+            &nbsp;
+            <form method="get" class="actions" asp-action="DeleteBox" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#DeleteView" data-ajax-mode="replace">
+                <button type="submit" class="btn btn-sm bg-danger-light " data-toggle="modal" href="#delete_modal">
+                    <i class="fe fe-trash"></i> Delete
+                </button>
+            </form>
+            
+        </td>
+    </tr>
+}

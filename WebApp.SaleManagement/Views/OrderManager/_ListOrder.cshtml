@@ -1,0 +1,53 @@
+﻿@model IEnumerable<WebApp.SaleManagement.Models.Order>
+@foreach (var item in Model)
+{
+<tr id="TR_@item.Id">
+    <td>@item.Id</td>
+
+    <td>@item.Customer.Name</td>
+    <td>@item.AdminName</td>
+    <td>@item.OrderDate</td>
+    @if (item.Status.ToString() == "PendingReview")
+    {
+        <td class="text-warning">
+            <b>@item.Status</b>
+        </td>
+    }
+    @if (item.Status.ToString() == "PendingShipment")
+    {
+        <td class="text-primary ">
+            <b>@item.Status</b>
+        </td>
+    }
+    @if (item.Status.ToString() == "Complete")
+    {
+
+        <td class="text-success">
+            <b>@item.Status</b>
+        </td>
+    }
+       
+    <td>@item.Customer.Address</td>
+    <td>@item.Total</td>
+    <td class="form-inline">
+        <form method="get" class="actions" asp-action="Edit" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#EditView" data-ajax-mode="replace">
+            <button type="submit" class="btn btn-sm bg-warning-light " data-toggle="modal" href="#edit_modal">
+                <i class="fe fe-edit"></i>
+            </button>
+        </form>
+        &nbsp;
+        <form method="get" class="actions" asp-action="Details" asp-route-id="@item.Id">
+            <button type="submit" class="btn btn-sm bg-primary-light " >
+                <i class="fe fe-eye"></i>
+            </button>
+        </form>
+        &nbsp;
+        <form method="get" class="actions" asp-action="Delete" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#DeleteView" data-ajax-mode="replace">
+            <button type="submit" class="btn btn-sm bg-danger-light " data-toggle="modal" href="#delete_modal">
+                <i class="fe fe-trash"></i>
+            </button>
+        </form>
+    </td>
+</tr>
+
+}

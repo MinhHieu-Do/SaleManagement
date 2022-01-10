@@ -1,0 +1,33 @@
+﻿@model WebApp.SaleManagement.ViewModels.RoleViewModel
+<div class="row">
+
+    <div class="col-md-11">
+        <h3 class="page-title text-primary">Edit Role</h3>
+    </div>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+</div>
+<form asp-action="Edit" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row form-row">
+        <div class="col-12 col-sm-12">
+            <div class="form-group">
+                <label class="text-right">Role Id</label>
+                <input readonly class="form-control" asp-for="Id">
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-12 col-sm-12">
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" required class="form-control" asp-for="Name">
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Save</button>
+</form>

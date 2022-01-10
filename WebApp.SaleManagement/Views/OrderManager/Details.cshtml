@@ -1,0 +1,187 @@
+﻿@model WebApp.SaleManagement.ViewModels.OrderDetailViewModel
+@{
+    ViewData["Title"] = "Details";
+
+}
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">Detail Order</h3>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="profile-header">
+                <div class="row align-items-center">
+                    <div class="col-auto profile-image">
+                        <a href="#">
+                            <img class="rounded-circle" alt="User Image" src="~/assets/img/profiles/avatar-01.jpg">
+                        </a>
+                    </div>
+                    <div class="col ml-md-n2 profile-user-info">
+                        <h4 class="user-name mb-0">@Model.Customer.Name</h4>
+                        <h6 class="text-muted">@Model.Customer.Email</h6>
+                        <h6 class="text-muted">@Model.Customer.Phone</h6>
+                        <div class="user-Location"><i class="fa fa-map-marker"></i> @Model.Customer.Address</div>
+
+                    </div>
+                    <div class="col-auto profile-btn">
+
+                        <a asp-action="Index" asp-controller="OrderManager" class="btn btn-outline-primary">
+                            List of Order
+                        </a>
+                    </div>
+                    <div class="col-auto profile-btn">
+
+                        <a asp-action="Details" asp-controller="Customer" asp-route-id="@Model.Customer.Id" class="btn btn-outline-primary">
+                            Customer Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="profile-menu">
+                <ul class="nav nav-tabs nav-tabs-solid">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#per_details_tab">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#password_tab">Details</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tab-content profile-tab-cont">
+
+                <!-- Personal Details Tab -->
+                <div class="tab-pane fade show active" id="per_details_tab">
+
+                    <!-- Personal Details -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card-title d-flex justify-content-between">
+
+                                        <span class="text-primary h5"> Order</span>
+
+                                        <form method="get" class="actions" asp-action="Edit" asp-route-id="@Model.Order.Id" data-ajax="true" data-ajax-update="#EditView" data-ajax-mode="replace">
+                                            <button type="submit" class="btn btn-sm bg-light " data-toggle="modal" href="#edit_modal">
+                                                <i class="fe fe-edit"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Order Id</p>
+                                        <p class="col-sm-9">@Model.Order.Id</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Empolyee</p>
+                                        <p class="col-sm-9">@Model.Order.AdminName</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Date</p>
+                                        <p class="col-sm-9">@Model.Order.OrderDate</p>
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-sm-3 text-muted text-sm-right mb-0 mb-sm-3">Status</p>
+
+                                        @if (Model.Order.Status.ToString() == "PendingReview")
+                                        {
+                                            <p class="col-sm-9 text-warning">@Model.Order.Status</p>
+                                        }
+                                        @if (Model.Order.Status.ToString() == "PendingShipment")
+                                        {
+                                            <p class="col-sm-9 text-primary">@Model.Order.Status</p>
+                                        }
+                                        @if (Model.Order.Status.ToString() == "Complete")
+                                        {
+                                            <p class="col-sm-9 text-success">@Model.Order.Status</p>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <p class="col-sm-3 text-muted text-sm-right mb-0">Address</p>
+                                        <p class="col-sm-9 mb-0">
+                                            @Model.Order.Total
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+                    <!-- /Personal Details -->
+
+                </div>
+                <!-- /Personal Details Tab -->
+                <!-- Change Password Tab -->
+                <div id="password_tab" class="tab-pane fade">
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card">
+
+                                <div class="card-body">
+                                    <div class="table-responsive table-hover">
+                                        <table class="table mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th>Quantity</th>
+                                                    <th>Price</th>
+                                                    <th>Total</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.OrderDetails)
+                                                {
+                                                    <tr>
+                                                        <td>@item.Product.ProductName</td>
+                                                        <td>@item.Quantity</td>
+                                                        <td>@item.Product.Price</td>
+                                                        @{
+                                                            var total = item.Quantity * item.Product.Price;
+                                                        }
+                                                        <td>@total</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /Change Password Tab -->
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- Edit Modal -->
+<div class="modal fade" id="edit_modal" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+                  <div class="modal-body" id="EditView">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

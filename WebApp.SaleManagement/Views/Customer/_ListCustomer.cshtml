@@ -1,0 +1,43 @@
+﻿@model IQueryable<WebApp.SaleManagement.Models.Customer>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Id</td>
+        <td>
+            <h2 class="table-avatar">
+               <a>@item.Name</a>
+            </h2>
+        </td>
+        <td>@item.Email</td>
+        <td>@item.Phone</td>
+        <td>@item.Address</td>
+        
+        <td class="form-inline">
+
+            <form method="get" class="actions" asp-action="Edit" asp-route-id="@item.Id" >
+                <button type="submit" class="btn btn-sm bg-warning-light ">
+                    <i class="fe fe-edit"></i> Edit
+                </button>
+            </form>
+            &nbsp;
+            <form method="get" class="actions" asp-action="Details" asp-route-id="@item.Id">
+                <button type="submit" class="btn btn-sm bg-primary-light ">
+                    <i class="fe fe-eye"></i> Details
+                </button>
+            </form>
+            &nbsp;
+            <form method="get" class="actions" asp-action="Delete" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#DeleteView" data-ajax-mode="replace">
+                <button type="submit" class="btn btn-sm bg-danger-light " data-toggle="modal" href="#delete_modal">
+                    <i class="fe fe-trash"></i> Delete
+                </button>
+            </form>
+            &nbsp;
+            <form class="actions" asp-action="Create" asp-controller="Order" asp-route-id="@item.Id" >
+                <button type="submit" class="btn btn-sm btn-light">
+                    <i class="fe fe-cart"></i> Order
+                </button>
+            </form>
+        </td>
+    </tr>
+
+}

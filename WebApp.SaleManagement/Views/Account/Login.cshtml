@@ -1,0 +1,65 @@
+﻿@model WebApp.SaleManagement.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_AccountLayout";
+}
+<div class="login-wrapper">
+    <div class="container">
+        <div class="loginbox">
+            <div class="login-left">
+                <img class="img-fluid" src="~/assets/img/logo-white.png" alt="Logo">
+            </div>
+            <div class="login-right">
+                <div class="login-right-wrap">
+                    <h1>Login</h1>
+                    <p class="account-subtitle">Access to our dashboard</p>
+
+                    <!-- Form -->
+                    <form asp-action="Login" method="post" asp-controller="Account">
+                        <div class="form-group">
+                            <input class="form-control" asp-for="Email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" asp-for="Password" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-primary btn-block" type="submit">Login</button>
+                        </div>
+                    </form>
+                    <!-- /Form -->
+
+                    <div class="text-center forgotpass"><a href="forgot-password.html">Forgot Password?</a></div>
+                    <div class="login-or">
+                        <span class="or-line"></span>
+                        <span class="span-or">or</span>
+                    </div>
+
+                    <!-- Social Login -->
+
+                    @{
+                        if (Model.ExternalLogins.Count> 0)
+                        {
+                                        <div class="social-login form-inline">
+                                            <span>Login with</span>
+                                            <form class="facebook" method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                                                <input hidden name="provider" value="Facebook" />
+                                                <button type="submit" class="form-control btn btn-info text-white"><i class="fa fa-facebook"></i></button>
+                                            </form>
+                                            <form class="google " method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                                                <input hidden name="provider" value="Google" />
+                                                <button type="submit" class="form-control btn btn-danger text-white ml-2"><i class="fa fa-google"></i></button>
+                                            </form>
+                                        </div>
+                        }
+                      }
+
+                            
+                            <!-- /Social Login -->
+
+                            <div class="text-center dont-have">Don’t have an account? <a asp-action="Register">Register</a></div>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>

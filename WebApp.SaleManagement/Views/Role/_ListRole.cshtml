@@ -1,0 +1,31 @@
+﻿@model IEnumerable<WebApp.SaleManagement.ViewModels.RoleViewModel>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Id</td>
+        <td>
+            <h2 class="table-avatar">
+                @item.Name
+            </h2>
+        </td>
+       
+        <td class="form-inline">
+
+
+
+            <form method="get" class="actions" asp-action="Edit" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#EditView" data-ajax-mode="replace">
+                <button type="submit" class="btn btn-sm bg-warning-light " data-toggle="modal" href="#edit_modal">
+                    <i class="fe fe-edit"></i> Edit
+                </button>
+            </form>
+            &nbsp;
+            <form method="get" class="actions" asp-action="Delete" asp-route-id="@item.Id" data-ajax="true" data-ajax-update="#DeleteView" data-ajax-mode="replace">
+                <button type="submit" class="btn btn-sm bg-danger-light " data-toggle="modal" href="#delete_modal">
+                    <i class="fe fe-trash"></i> Delete
+                </button>
+            </form>
+
+        </td>
+    </tr>
+
+}
