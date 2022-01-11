@@ -42,7 +42,7 @@
                             <div class="form-group">
                                 <label>Product Image</label>
 
-                                <input type="file" asp-for="ImageFile" onchange=""
+                                <input type="file" asp-for="ImageFile" onchange="document.getElementById('productImage').src = window.URL.createObjectURL(this.files[0])"
                                        class="form-control">
                             </div>
                         </div>
